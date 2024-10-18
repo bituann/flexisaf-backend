@@ -1,13 +1,16 @@
 package com.flexisaf.weekfive;
+
 import com.flexisaf.weekfive.BankAccountUserException.*;
+
+import java.util.Scanner;
 
 public class BankAccountUser {
     private String name;
     private int acctNum;
-    private int pin;
+    private String pin;
     private double balance;
 
-    public BankAccountUser (String name, int acctNum, int pin) {
+    public BankAccountUser (String name, int acctNum, String pin) {
         this.name = name;
         this.acctNum = acctNum;
         this.pin = pin;
@@ -22,15 +25,27 @@ public class BankAccountUser {
         this.balance += amount;
     }
 
-    public void withdraw (double amount) throws InvalidAmountException, InsufficientFundsException {
-        if (amount < 100) {
-            throw new InvalidAmountException();
+    public void withdraw (double amount, String pin) throws InvalidAmountException, InsufficientFundsException, InvalidPinException {
+        if (!pin.equals(this.pin)) {
+            throw new InvalidPinException("The pin provided is incorrect");
         }
 
-        if (amount < balance) {
-            throw new InsufficientFundsException();
+        if (amount <= 0) {
+            throw new InvalidAmountException("The amount entered is invalid");
         }
 
+        if (amount > this.balance) {
+            throw new InsufficientFundsException("Insufficient funds");
+        }
 
+        this.balance -= amount;
+    }
+
+    public double getBalance () {
+        return this.balance;
+    }
+
+    public void changePin (String pin) {
+        this.pin = pin;
     }
 }
