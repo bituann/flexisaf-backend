@@ -40,6 +40,8 @@ Committing changes to the repository means taking a 'snapshot' of your repositor
   2. Next, the files to be committed are to be tracked. Remember how `git status` checks if changes have been made to a file? That's only possible if the files have been tracked. To track a file, use `git add <file name/path>`. If you want to track all the files in the repository, you don't have to run the command for every file; use `git add *` instead. Tracking a file for the first automatically stages it for committing. Only staged files (and changes) can be committed. If a change has been made to a file, use `git add <file name/path>` to stage the file for the next commit. It is important to think of the `git add` command as a "make sure the next commit includes this file or this change in the file"
   3. Finally, run `git commit`. This command will open up an editor where you can include a message to be added to the commit. This message can be a short description of what canges has been made, or what has been added; and it can also be a lengthy explanation of why a change was made. Exit the editor to complete the commit. If you want to skip the editor opening up (perhaps because the commit message is very short), you can use `git commit -m '<message'`. Another useful hack is including the `-a` flag to the commit command (`git commit -a`). This allows you to skip the staging process, and add all files already tracked to the commit
 
+## Reverting Commits
+
 ## Pulling and Pushing Changes
 Pulling changes (downstream) means getting information from a repository, updating the one that's local to your machine with any available changes. It is done with the command `git pull <repository>`.
 
@@ -97,6 +99,8 @@ If you don't have write permission, then you'd have to make a fork of the reposi
 * Set "head fork" to the your forked repository (and the branch) in which you made the changes
 * Type in a title and description for the pull request
 * Click "Create Pull Request"
+
+## Reviewing and Merging Pull Requests
 
 ## Reverting Pull Request
 Reverting a pull request creates a pull request which will undo the merge commit of the original pull request. If you want to revert a pull, request for whatever reason, then follow the steps outlined. It is important to state that you need write permission on the repository before you can revert a pull request. If you don't have such permission, you'd need to ask the repository administrator for write permmision. With that out of the way, the steps are:
