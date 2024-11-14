@@ -3,6 +3,22 @@
 This tutorial assumes a basic understanding of CLI commands and operations.
 This tutorial uses git on the command line, and GitHub on the web
 
+## Table of Contents
+* [Create a Git Repository](#create-a-git-repository)
+* [Cloning a Git Repository](#cloning-a-git-repository)
+* [Creating Branches](#creating-branches)
+* [Committing Changes](#committing-changes)
+* [Reverting Commits](#reverting-commits)
+* [Pulling and Pushing Changes](#pulling-and-pushing-changes)
+* [Fetching Changes](#fetching-changes)
+* [Merging Branches](#merging-branches)
+* [Renaming Branches](#renaming-branches)
+* [Creating Pull Requests](#creating-pull-requests)
+* [Reviewing and Merging Pull Requests](#reviewing-and-merging-pull-requests)
+  * [Reviewing Pull Requests](#reviewing-pull-requests)
+  * [Merging Pull Requests](#merging-pull-requests)
+* [Reverting Pull Requests](#reverting-pull-requests)
+
 ## Create a Git Repository
   There are two ways in which a repository can be gotten. The first is by creating the repositoty, and the second is by cloning an existing repository. The latter will be explained in the next section. This section focuses on creating a git repository from scratch. 
   1. Create the directory (folder) in your computer, if it doesn't already exist (`mkdir <folder_name>`)
@@ -41,6 +57,9 @@ Committing changes to the repository means taking a 'snapshot' of your repositor
   3. Finally, run `git commit`. This command will open up an editor where you can include a message to be added to the commit. This message can be a short description of what canges has been made, or what has been added; and it can also be a lengthy explanation of why a change was made. Exit the editor to complete the commit. If you want to skip the editor opening up (perhaps because the commit message is very short), you can use `git commit -m '<message'`. Another useful hack is including the `-a` flag to the commit command (`git commit -a`). This allows you to skip the staging process, and add all files already tracked to the commit
 
 ## Reverting Commits
+To revert a git commit, we use the `git revert` command.
+
+`git revert <commit id>` takes the id of the commit we want to revert, then it creates a new commit which will undo only the changes associated with the commit identified. 
 
 ## Pulling and Pushing Changes
 Pulling changes (downstream) means getting information from a repository, updating the one that's local to your machine with any available changes. It is done with the command `git pull <repository>`.
@@ -73,38 +92,61 @@ You would have to bring the files into agreement by choosing which change stays.
 Assuming you made a mistake while naming a branch — it could be a typo, a miscommunication — you'd definitely appreciate a way to fix that mistake. Fortunately, git comes with a command for renaming branches. The command is `git branch --move <oldbranchname> <newbranchname>`.
 
 The command above renames the branch locally, but if the branch also exists on a server elsewhere (which, it most likely does), then you'd need a two sets of commands to change the version on the server. The commands are:
-  - `git push --set-upstream origin newbranchname`, followed by
-  - `git push origin --delete oldbranchname`
+  * `git push --set-upstream origin newbranchname`, followed by
+  * `git push origin --delete oldbranchname`
 
 ## Creating Pull Requests
 Pull requests are made when you want to work on a project that isn't yours, or a repository that you don't have write permissions for. It's a request made for the owner of the repository, or a contributor to merge your branch with the main branch. If you don't have write permission, the owner will first pull your branch into the repository(if you don't have write permission), before merging it with the main branch.
 
 If you have write permission, pull requests can be made on github through the following steps:
-* Go to the main repository page
-* Switch to the branch that contains your commits
-* Click on the "Pull request" tab
-* Click on "New Pull Request"
-* Set "base branch" to the branch you want your changes to be merged into
-* Set "compare branch" to the branch that contains your changes
-* Type a title and description for the pull request
-* Click "Create Pull Request"
+1. Go to the main repository page
+2. Switch to the branch that contains your commits
+3. Click on the **Pull request** tab
+4. Click on **New Pull Request**
+5. Set **base branch** to the branch you want your changes to be merged into
+6. Set **compare branch** to the branch that contains your changes
+7. Type a title and description for the pull request
+8. Click **Create Pull Request**
 
 If you don't have write permission, then you'd have to make a fork of the repository (a copy of that repository but with full control given to you). After that, make your changes, commit them, push to the repository on GitHub, then proceed with the following steps:
 
-* Go to the main repository page
-* Click on the "Pull request" tab
-* Click on "New Pull Request"
-* On the page that appears, click "Compare across fork"
-* Set "base branch" to the repository you want to merge into
-* Set "head fork" to the your forked repository (and the branch) in which you made the changes
-* Type in a title and description for the pull request
-* Click "Create Pull Request"
+1. Go to the main repository page
+2. Click on the **Pull request** tab
+3. Click on **New Pull Request**
+4. On the page that appears, click **Compare across fork**
+5. Set the **base branch** section to the repository you want to merge into
+6. Set the **head fork** to the your forked repository (and the branch) in which you made the changes
+7. Type in a title and description for the pull request
+8. Click **Create Pull Request**
 
 ## Reviewing and Merging Pull Requests
+### Reviewing Pull Requests
+To review a pull request, follow the steps below:
+1. On the main repository page, click on the **Pull Requests** tab
+2. On the page that shows up, click on the request you'd like to review
+3. Click on **Files Changed** tab. You can filter the files to show only the files you want to review
+4. To add a comment, hover over the line of code in question, and click on the blue **+** icon that appears. To add a coment to multiple lines, you can use two ways:
+   * Click and hold the line number of the first line, and drag it down to the last line, then click the **+** button
+   * Click and hold the blue **+** button at the first line, then drag to the last line
+5. Type your comment
+6. Click **Start a review** if that's the first review, or click **Add review comment** if the review is already in progress
+7. Click **Viewed** on the top right of the file you just viewed to mark it as viewed
+8. On the **Files Changed** tab inside the **Pull Requests** tab, click **Review Changes**
+9. Summarize a feedback in a comment
+10. Select the type of review (**Comment**, **Approve**, **Request Changes**)
+11. Click **Submit Review**
+### Merging Pull Requests
+The steps below indicate how to merge pull requests:
+1. Click on **Pull Requests** in the main repository page, then **Files Changed**
+2. Click on the pull request you'd like to merge
+3. Scroll to the bottom of the pull request and select one of **Merge Pull Request**, **Squash and Merge**, **Rebase and Merge**
+4. Type a commit message, or accept the default if prompted
+5. Click **Confirm Merge**, **Confirm Squash and Merge**, or **Confirm Rebase and Merge**, depending on the option selected in step 3
+6. Delete the branch, if tou wish.
 
-## Reverting Pull Request
+## Reverting Pull Requests
 Reverting a pull request creates a pull request which will undo the merge commit of the original pull request. If you want to revert a pull, request for whatever reason, then follow the steps outlined. It is important to state that you need write permission on the repository before you can revert a pull request. If you don't have such permission, you'd need to ask the repository administrator for write permmision. With that out of the way, the steps are:
-* In the main repository, click on "Pull Requests" tab
-* Select the pull request you'd like to revert from the list it presents
-* Click "Revert", which can be found near the bottom of the pull request
-* Merge the resulting pull request
+1. In the main repository, click on **Pull Requests** tab
+2. Select the pull request you'd like to revert from the list it presents
+3. Click **Revert**, which can be found near the bottom of the pull request
+4. Merge the resulting pull request
